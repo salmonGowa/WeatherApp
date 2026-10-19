@@ -4,7 +4,6 @@ djangorestframework==3.18.3
 django-cors-headers==4.9.0
 environs==15.2.0
 marshmallow==4.3.1
-mysqlclient==2.3.0
 python-dotenv==1.2.4
 sqlparse==0.6.0
 httpx==0.28.1

@@ -18,7 +18,7 @@ bash
 # Backend (Python 3.12+)
 cd backend
 python -m venv ../env && source ../env/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt     # requirements-mysql.txt to use MySQL
 python manage.py runserver            # http://127.0.0.1:8000/api/
 
 # Frontend -have node installed
@@ -145,7 +145,7 @@ frontend/
 - API: `CORS_ALLOWED_ORIGINS` = the frontend URL. Set `REDIS_URL` too if you want a cache shared across workers.
 - Frontend: `VITE_API_URL` = `https://<api-host>/api/`
 
-`mysqlclient` needs MySQL client headers at build time. It is only used when `DATABASE_NAME` is set, so remove it from `requirements.txt` if your host lacks the headers.
+`mysqlclient` lives in `backend/requirements-mysql.txt`, so hosted builds don't need MySQL client headers. Install that file instead only if you run locally with `DATABASE_NAME` set.
 
 ## Limitations and notes
 
