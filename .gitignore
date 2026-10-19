@@ -1,0 +1,22 @@
+# Secrets (use backend/.env.example as the template)
+.env
+*.env.local
+
+# Python
+env/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+db.sqlite3
+
+# Node
+node_modules/
+dist/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+*.log

@@ -1,0 +1,8 @@
+/.env
+backend/.env
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/*
+!staticfiles/.gitkeep
+.pytest_cache/

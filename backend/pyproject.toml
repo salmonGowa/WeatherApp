@@ -1,0 +1,31 @@
+# Code style: PEP 8, enforced by black (layout) and ruff (lint).
+#   black . && ruff check .
+
+[tool.black]
+line-length = 79  # PEP 8 maximum line length
+target-version = ["py312"]
+extend-exclude = "staticfiles"
+
+[tool.ruff]
+line-length = 79
+target-version = "py312"
+extend-exclude = ["staticfiles"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors   (PEP 8)
+    "W",   # pycodestyle warnings (PEP 8)
+    "N",   # pep8-naming          (PEP 8 naming conventions)
+    "F",   # pyflakes: unused imports/variables, undefined names
+    "I",   # isort: PEP 8 import grouping and order
+    "B",   # bugbear: likely bugs and design problems
+    "UP",  # pyupgrade: modern syntax for the target version
+    "SIM", # simplify: "simple is better than complex" (PEP 20)
+    "C4",  # comprehensions
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 72  # PEP 8: docstrings and comments wrap at 72
+
+[tool.ruff.lint.isort]
+known-first-party = ["api", "backend"]

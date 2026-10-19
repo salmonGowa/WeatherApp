@@ -1,0 +1,17 @@
+# PEP 8 checks on every commit. Setup: pip install pre-commit && pre-commit install
+# Uses the black/ruff installed in the backend virtualenv (config: backend/pyproject.toml).
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: black (PEP 8 formatting)
+        entry: bash -c 'cd backend && black --check .'
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: ruff
+        name: ruff (PEP 8 lint)
+        entry: bash -c 'cd backend && ruff check .'
+        language: system
+        types: [python]
+        pass_filenames: false
