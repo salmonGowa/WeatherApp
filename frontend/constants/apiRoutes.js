@@ -1,5 +1,5 @@
 const LOCAL_URL = "http://127.0.0.1:8000/api/";
-const PRODUCTION_URL = "https://truck-routing-api.onrender.com/api/";
+const PRODUCTION_URL = "https://truck-routing-api-6vjl.onrender.com/api/";
 
 function getBaseUrl() {
   const override = (import.meta.env.VITE_API_URL || "").trim();
