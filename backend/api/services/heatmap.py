@@ -17,8 +17,10 @@ from datetime import datetime, timedelta
 from . import geometry as geo
 from . import risk, weather
 
-TARGET_CELLS = 250
-MAX_CELLS = 400
+# Each cell is one Open-Meteo location (one API call against the free
+# tier's per-IP limits), so the grid is kept small.
+TARGET_CELLS = 150
+MAX_CELLS = 250
 MIN_CELL_M = 10_000  # finer than this exceeds the forecast models' resolution
 MAX_CELL_M = 80_000
 ROUTE_SAMPLE_M = 4_000

@@ -70,6 +70,18 @@ def _get_with_retries(
     raise AssertionError("unreachable: the last attempt always returns")
 
 
+def _reason(resp: httpx.Response) -> str:
+    """The provider's own explanation, e.g. Open-Meteo's
+    {"reason": "Daily API request limit exceeded"}."""
+    try:
+        body = resp.json()
+    except ValueError:
+        return "no details"
+    if isinstance(body, dict) and body.get("reason"):
+        return str(body["reason"])
+    return "no details"
+
+
 def get_json(
     service: str,
     url: str,
@@ -80,7 +92,7 @@ def get_json(
     resp = _get_with_retries(service, url, params, timeout)
     if resp.status_code == 429:
         raise ExternalServiceError(
-            service, "rate limited, please retry shortly"
+            service, f"rate limited ({_reason(resp)}), please retry later"
         )
     if resp.status_code >= 400:
         raise ExternalServiceError(

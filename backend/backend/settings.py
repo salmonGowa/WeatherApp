@@ -21,7 +21,10 @@ SECRET_KEY = env(
     "django-insecure-8i-p3%+f73hgxkzcq$f#^ch(iau4+$(3!w4m%29@)$p-!v8f!=",
 )
 DEBUG = env.bool("DEBUG", False)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["localhost", "127.0.0.1", "https://truck-routing.onrender.com"])
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    ["localhost", "127.0.0.1", "https://truck-routing.onrender.com"],
+)
 if env("RENDER_EXTERNAL_HOSTNAME", None):  # set automatically on Render
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", [])

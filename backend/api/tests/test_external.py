@@ -189,3 +189,16 @@ def test_retry_recovers_after_transient_error(monkeypatch):
     )
     assert get_json("svc", "https://example.test/x") == {"ok": 1}
     assert sleeps == [1.0]
+
+
+@respx.mock
+def test_rate_limit_message_includes_provider_reason(monkeypatch):
+    monkeypatch.setattr("api.services.http.time.sleep", lambda s: None)
+    respx.get("https://example.test/y").mock(
+        return_value=httpx.Response(
+            429,
+            json={"error": True, "reason": "Daily API request limit exceeded"},
+        )
+    )
+    with pytest.raises(ExternalServiceError, match="Daily API request limit"):
+        get_json("weather", "https://example.test/y")

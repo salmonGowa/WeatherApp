@@ -16,7 +16,7 @@ from django.core.cache import cache
 from . import geometry as geo
 from .http import ExternalServiceError, get_json
 
-CACHE_TTL = 60 * 30
+CACHE_TTL = 60 * 60  # forecast models update hourly at best
 BATCH_SIZE = 25
 MAX_WORKERS = 4
 GRID_DEG = 0.1
