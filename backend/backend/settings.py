@@ -20,7 +20,7 @@ SECRET_KEY = env(
     "SECRET_KEY",
     "django-insecure-8i-p3%+f73hgxkzcq$f#^ch(iau4+$(3!w4m%29@)$p-!v8f!=",
 )
-DEBUG = env.bool("DEBUG", True)
+DEBUG = env.bool("DEBUG", False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["localhost", "127.0.0.1"])
 if env("RENDER_EXTERNAL_HOSTNAME", None):  # set automatically on Render
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
@@ -44,10 +44,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.gzip.GZipMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -143,15 +143,21 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+_INVISIBLE = {"\u200b", "\u200c", "\u200d", "\u2060", "\ufeff"}
 
-# CORS.
+
+def _clean_origin(origin: str) -> str:
+    kept = (c for c in origin if not c.isspace() and c not in _INVISIBLE)
+    return "".join(kept).rstrip("/")
+
+
 CORS_ALLOWED_ORIGINS = [
-    origin.strip().rstrip("/")
+    cleaned
     for origin in env.list(
         "CORS_ALLOWED_ORIGINS",
         ["http://localhost:5173", "http://127.0.0.1:5173"],
     )
-    if origin.strip()
+    if (cleaned := _clean_origin(origin))
 ]
 
 
@@ -177,7 +183,5 @@ HTTP_TIMEOUT_SECONDS = env.float("HTTP_TIMEOUT_SECONDS", 20.0)
 
 # Trucks are slower than the car profile the public OSRM server uses.
 TRUCK_MAX_SPEED_MPH = env.float("TRUCK_MAX_SPEED_MPH", 65.0)
-# Optional key for Open-Meteo's commercial endpoint (set OPEN_METEO_URL
-# to https://customer-api.open-meteo.com/v1/forecast alongside it).
 OPEN_METEO_API_KEY = env("OPEN_METEO_API_KEY", "")
 WEATHER_TIMEOUT_SECONDS = env.float("WEATHER_TIMEOUT_SECONDS", 45.0)
