@@ -4,7 +4,7 @@ A React + Django app that helps a truck driver choose the safest route between t
                                                                                     |
 
 **Frontend**  React 19, TypeScript, Vite, Tailwind CSS v4, Leaflet, TanStack Query                  
-**Backend**   Django 4.2, Django REST Framework, httpx                                              
+**Backend**   Django 5.2 (LTS), Django REST Framework, httpx                                              
 **Routing**   [OSRM](https://project-osrm.org/) public                     
 **Weather**   [Open-Meteo](https://open-meteo.com/) hourly forecast (wind, rain, showers, snowfall) 
 **Geocoding** [Photon](https://photon.komoot.io/) (OpenStreetMap)                                   
